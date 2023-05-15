@@ -1,4 +1,5 @@
 from app import db
+from datetime import date
 
 class SalesPerson(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,3 +18,16 @@ class Customer(db.Model):
 
     def __repr__(self):
         return f'<Customer {self.id}: {self.name}>'
+
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+    date = db.Column(db.Date, default=date.today)
+
+class OrderDetails(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+class Status(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String(100), unique=True)
