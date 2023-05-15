@@ -1,13 +1,24 @@
 from flask import jsonify
-from app import app, db
+from app import app, db, login_manager
 from app.models import SalesPerson, Customer
+from werkzeug.security import generate_password_hash, check_password_hash
 
 @app.route('/')
 @app.route('/index')
 def index():
     return "Hello, World!"
 
-@app.route('/salespeople')
+@login_manager.user_loader
+def load_user(id):
+    return SalesPerson(id)
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+
+@app.route('/salespeople', methods=['GET'])
 def salespeople_list():
     salespeople = db.session.execute(db.select(SalesPerson).order_by(SalesPerson.id)).scalars()
     result = []
@@ -19,7 +30,7 @@ def salespeople_list():
         result.append(_sales)
     return jsonify(result)
 
-@app.route('/sales/<int:id>')
+@app.route('/sales/<int:id>', methods=['GET'])
 def salesperson_detail(id):
     sales = db.get_or_404(SalesPerson, id)
     customers = sales.customers.all()
