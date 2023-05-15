@@ -19,6 +19,20 @@ class Customer(db.Model):
     def __repr__(self):
         return f'<Customer {self.id}: {self.name}>'
 
+class Products(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(512))
+    price = db.Column(db.Float)
+    warehouse_qty = db.Column(db.Integer)
+    active_qty = db.Column(db.Integer)
+    available_qty = db.Column(db.Integer)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    img_src = db.Column(db.String(512))
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category_name = db.Column(db.String(256))
+
 class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
@@ -27,6 +41,9 @@ class Orders(db.Model):
 
 class OrderDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
+    product_qty = db.Column(db.Integer)
 
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
