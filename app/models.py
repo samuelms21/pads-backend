@@ -1,5 +1,5 @@
 from app import db
-from datetime import date
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class SalesPerson(db.Model):
@@ -65,7 +65,7 @@ class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    date = db.Column(db.Date, default=date.today)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, _status_id, _customer_id):
         self.status_id = _status_id
@@ -84,6 +84,9 @@ class OrderDetails(db.Model):
         self.product_id = _product_id
         self.order_id = _order_id
         self.product_qty = _product_qty
+
+    def __repr__(self):
+        return f"OrderDetail ID: {self.id}, Order ID: {self.order_id}, Product ID: {self.product_id}, Product Qty: {self.product_qty}"
 
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
