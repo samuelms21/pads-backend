@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 from app import app, db, login_manager
 from app.models import SalesPerson, Customer
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -16,6 +16,7 @@ def load_user(id):
 def login():
     username = request.json.get('username')
     password = request.json.get('password')
+    return jsonify({"username": username, "password": password})
 
 
 @app.route('/salespeople', methods=['GET'])
