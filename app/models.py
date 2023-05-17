@@ -71,6 +71,9 @@ class Orders(db.Model):
         self.status_id = _status_id
         self.customer_id = _customer_id
 
+    def __repr__(self):
+        return f"Order ID: {self.id}, Status: {self.status_id},\nCustomerID: {self.customer_id}, Date: {self.date}"
+
 class OrderDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))

@@ -63,6 +63,15 @@ def create_order():
     print(f"Shopping cart: {cart}")
 
     # Create the order and order detail object (database)
-    
+    # status_id : 1 ( ACTIVE / IN-PROCESS )
+    new_order = Orders(1, int(customer_id))
+    print("#"*50)
+    print(new_order)    
+
+    db.session.add(new_order)
+    db.session.commit()
+
+    # Create new order detail
+    new_order_detail = OrderDetails()
 
     return jsonify(data)
