@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from app import app, db, login_manager
-from app.models import SalesPerson, Customer
+from app.models import SalesPerson, Customer, Products, Category, Orders, OrderDetails, Status
 from werkzeug.security import generate_password_hash, check_password_hash
 
 @app.route('/')
@@ -31,7 +31,7 @@ def salespeople_list():
         result.append(_sales)
     return jsonify(result)
 
-@app.route('/sales/<int:id>', methods=['GET'])
+@app.route('/salespeople/<int:id>', methods=['GET'])
 def salesperson_detail(id):
     sales = db.get_or_404(SalesPerson, id)
     customers = sales.customers.all()
@@ -49,3 +49,20 @@ def salesperson_detail(id):
         "customers": _customers
     }
     return jsonify(s_detail)
+
+# Create Order
+@app.route('/orders/create', methods=['POST'])
+def create_order():
+    data = request.get_json()
+    # for key, value in data.items():
+    #     print(key, value)
+    
+    customer_id = data["customer_id"]
+    cart = data["cart"]
+    print(f"Customer ID: {customer_id}")
+    print(f"Shopping cart: {cart}")
+
+    # Create the order and order detail object (database)
+    
+
+    return jsonify(data)
