@@ -44,6 +44,7 @@ def salespeople_list():
         result.append(_sales)
     return jsonify(result)
 
+# Get Salespeople Detail
 @app.route('/salespeople/<int:id>', methods=['GET'])
 def salesperson_detail(id):
     sales = db.get_or_404(SalesPerson, id)
@@ -75,6 +76,8 @@ def create_order():
 
     # Create the order and order detail object (database)
     # status_id : 1 ( ACTIVE / IN-PROCESS )
+    # status_id : 2 ( SENT )
+    # status_id : 3 ( CANCELLED )
     new_order = Orders(_status_id=1, _customer_id=int(customer_id))
     db.session.add(new_order)
     db.session.commit()
