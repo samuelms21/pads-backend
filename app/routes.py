@@ -150,3 +150,44 @@ def update_order(order_id):
     }
 
     return jsonify(result), 200
+
+# Get Product List / Inventory
+@app.route('/products', methods=['GET'])
+@jwt_required()
+def get_product_inventory():
+    current_user = get_jwt_identity()
+    inventory = db.session.execute(db.select(Products).order_by(Products.id)).scalars()
+    _inventory = []
+
+    for item in inventory:
+        _item = {
+            "id": item.id,
+            "name": item.name,
+            "warehouse_qty": item.warehouse_qty,
+            "available_qty": item.available_qty,
+            "active_qty": item.active_qty,
+            "img_src": item.img_src
+        }
+        item_category = db.session.execute(db.select(Category).filter_by(id=item.category_id)).scalar_one()
+        _item["category"]: item_category.category_name
+        _inventory.append(_item)
+
+    return jsonify(_inventory)
+
+
+@app.route('/products/<int:category_id>', methods=['GET'])
+@jwt_required()
+def get_products_by_category(category_id):
+    products_by_category = db.session.execute(db.select(Products).filter_by(category_id=category_id)).scalars()
+    _products = []
+    for product in products_by_category:
+        _products.append({
+            "id": product.id,
+            "name": product.name,
+            "warehouse_qty": product.warehouse_qty,
+            "available_qty": product.available_qty,
+            "active_qty": product.active_qty,
+            "img_src": product.img_src
+        })
+
+    return jsonify(_products)
