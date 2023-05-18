@@ -66,6 +66,7 @@ class Orders(db.Model):
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     date = db.Column(db.DateTime, default=datetime.utcnow)
+    order_details = db.relationship("OrderDetails", backref="order_details", lazy="dynamic")
 
     def __init__(self, _status_id, _customer_id):
         self.status_id = _status_id
