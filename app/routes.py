@@ -131,9 +131,22 @@ def create_order():
     return jsonify({"message": "Order created succesfully!"}), 200
 
 
-# Cancel Order
-@app.route('/orders/cancel', methods=['PUT'])
+# Update Order Status
+@app.route('/orders/<int:order_id>', methods=['PUT'])
 @jwt_required()
-def cancel_order():
+def update_order(order_id):
     current_user = get_jwt_identity()
-    return "Cancel Order"
+    new_status = int(request.json.get("new_status"))
+    print("UPDATE ORDER WITH ID:", order_id)
+    order_to_update = db.session.execute(db.select(Orders).filter_by(id=order_id)).scalar_one()
+    order_to_update.status_id = new_status
+    print(order_to_update)
+    db.session.commit()
+
+    result = {
+        "order_id": order_to_update.id,
+        "new_status": order_to_update.status_id,
+        "message": "Order status updated succesfully!"
+    }
+
+    return jsonify(result), 200
