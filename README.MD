@@ -17,7 +17,7 @@ source venv/bin/activate
 b. Windows
 
 ```
-venv/Scripts/activate
+venv\Scripts\activate
 ```
 
 3. Install all packages/libraries required
