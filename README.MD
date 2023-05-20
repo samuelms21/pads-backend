@@ -19,14 +19,14 @@ source venv/bin/activate
 ### A. Initialization
 
 1. Create a Python virtual environment (venv)
-
 ```
 pip install virtualenv
 python -m venv venv
 ```
 
-2. Install all packages/libraries required
+2. Activate python vevn & install packages/libraries required
 ```
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
