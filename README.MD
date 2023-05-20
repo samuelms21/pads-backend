@@ -8,8 +8,7 @@ pip install virtualenv
 python -m venv venv
 ```
 
-2. Start virtual environment (macOS & Windows)
-   a. MacOS
+2. Start virtual environment 
 
 ```
 source venv/bin/activate
