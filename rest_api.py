@@ -1,5 +1,6 @@
 from app import app, db
 from app.models import SalesPerson, Customer, Products, Category, Orders, OrderDetails, Status
+import socket
 
 @app.shell_context_processor
 def make_shell_context():
@@ -72,7 +73,12 @@ def create_tables():
         db.session.add(cancelled)
         db.session.commit()
 
+
 if __name__ == "__main__":
     reset_tables()
     create_tables()
-    app.run(debug=True)
+
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    
+    app.run(port=5000, host=ip_address, threaded=False, debug=True)

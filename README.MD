@@ -1,40 +1,52 @@
 # How to start REST API
 
-1. Create a Python virtual environment
+## I. macOS
+1. Create a Python virtual environment (venv)
 
 ```
 pip install virtualenv
 python -m venv venv
 ```
 
-2. Start virtual environment (macOS & Windows)
-   a. MacOS
+2. Start virtual environment 
 
 ```
 source venv/bin/activate
 ```
 
-b. Windows
+## II. Windows
 
+### A. Initialization
+
+1. Create a Python virtual environment (venv)
 ```
-venv/Scripts/activate
+pip install virtualenv
+python -m venv venv
 ```
 
-3. Install all packages/libraries required
-
+2. Activate python vevn & install packages/libraries required
 ```
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Start REST API
 
+### B. Run
+
+1. Activate python venv
+```
+venv\Scripts\activate
+```
+
+2. Start REST API
 ```
 python rest_api.py
 ```
 
-Addtionals:
 
-1. View SQLite Database:
+## III. Addtionals:
+
+View SQLite Database:
 
 ```
 sqlite3 app.db
