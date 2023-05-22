@@ -77,8 +77,4 @@ def create_tables():
 if __name__ == "__main__":
     reset_tables()
     create_tables()
-
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    
-    app.run(port=5000, host=ip_address, threaded=False, debug=True)
+    app.run(debug=True)

@@ -21,7 +21,7 @@ def login():
             access_token = create_access_token(identity=sales_person.username)
             return jsonify({'access_token': access_token}), 200
     except:
-        return jsonify({'message': 'Invalid credentials'}), 401 
+        return jsonify({'access_token': 'invalid_credentials'}), 401 
 
 
 # Example protected route
@@ -119,8 +119,6 @@ def create_order():
 
     recent_order_instance = db.session.execute(db.select(Orders).order_by(Orders.date.desc())).scalars()
     latest_order_id = list(recent_order_instance)[0].id
-    print("Latest Order ID: ", latest_order_id)
-
     
     for item in cart:
         new_order_detail = OrderDetails(item["product_id"], latest_order_id, item["product_qty"])
@@ -166,7 +164,8 @@ def get_product_inventory():
             "warehouse_qty": item.warehouse_qty,
             "available_qty": item.available_qty,
             "active_qty": item.active_qty,
-            "img_src": item.img_src
+            "img_src": item.img_src,
+            "price": item.price
         }
         item_category = db.session.execute(db.select(Category).filter_by(id=item.category_id)).scalar_one()
         _item["category"]: item_category.category_name
@@ -175,6 +174,7 @@ def get_product_inventory():
     return jsonify(_inventory)
 
 
+# Get Products by Category
 @app.route('/products/<int:category_id>', methods=['GET'])
 @jwt_required()
 def get_products_by_category(category_id):
