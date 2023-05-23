@@ -50,18 +50,25 @@ def create_tables():
         # Tech
         iphone = Products("iPhone", 100, 100, 0, 100, 1, "iphone.png")
         samsung_phone = Products("Samsung", 90, 100, 0, 100, 1, "samsung.png")
+        huawei_phone = Products("Huawei Phone", 60, 100, 0, 100, 1, "huawei.png")
         # Fashion
         tshirt = Products("T-shirt", 50, 100, 0, 100, 2, "tshirt.png")
         jeans = Products("Jeans", 40, 100, 0, 100, 2, "jeans.png")
+        white_shirt = Products("White Shirt", 30, 100, 0, 100, 2, "white_shirt.png")
         # Gaming
         razer = Products("Razer Laptop", 120, 100, 0, 100, 3, "razer_laptop.png")
         asus_rog = Products("ASUS ROG", 110, 100, 0, 100, 3, "asus_rog.png")
+        alienware = Products("Alienware PC", 230, 100, 0, 100, 3, "alienware_pc.png")
+
         db.session.add(iphone)
         db.session.add(samsung_phone)
+        db.session.add(huawei_phone)
         db.session.add(tshirt)
         db.session.add(jeans)
+        db.session.add(white_shirt)
         db.session.add(razer)
         db.session.add(asus_rog)
+        db.session.add(alienware)
         db.session.commit()
 
         # Order Status
