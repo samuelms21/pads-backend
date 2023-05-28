@@ -84,4 +84,4 @@ def create_tables():
 if __name__ == "__main__":
     reset_tables()
     create_tables()
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
