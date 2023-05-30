@@ -51,3 +51,15 @@ View SQLite Database:
 ```
 sqlite3 app.db
 ```
+
+To view database schema for all tables (in sqlite CLI):
+
+```
+.schema
+```
+
+To view schema for specific table:
+
+```
+.schema TABLE_NAME
+```
